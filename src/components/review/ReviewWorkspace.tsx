@@ -21,6 +21,7 @@ const JOYRIDE_OPTIONS: Partial<Options> = {
   primaryColor: '#ff5a00',
   showProgress: true,
   buttons: ['back', 'close', 'primary', 'skip'],
+  closeButtonAction: 'skip',
 }
 
 export function ReviewWorkspace() {
