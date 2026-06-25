@@ -7,7 +7,7 @@ interface ApplicationSectionProps {
 
 export function ApplicationSection({ creator, campaign }: ApplicationSectionProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-tour="application-section">
       <div>
         <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
           Application Message

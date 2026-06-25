@@ -1,9 +1,10 @@
 import type { Campaign, Creator } from '@/types'
 import { Badge } from '@/components/ui/Badge'
-import { ActionBar } from './ActionBar'
 import { AiReviewCard } from './AiReviewCard'
 import { ApplicationSection } from './ApplicationSection'
 import { CreatorProfile } from './CreatorProfile'
+import { DecisionSection } from './DecisionSection'
+import { RunReviewSection } from './RunReviewSection'
 
 interface ReviewPanelProps {
   creator: Creator
@@ -53,15 +54,11 @@ export function ReviewPanel({
         </div>
 
         <div className="border-t border-gray-100 pt-5">
-          <ActionBar
-            currentStatus={creator.status}
+          <RunReviewSection
             isReviewing={isReviewing}
             hasAiReview={creator.aiReview !== undefined}
             reviewError={reviewError}
             onRunReview={onRunReview}
-            onApprove={onApprove}
-            onReject={onReject}
-            onNeedsInfo={onNeedsInfo}
           />
         </div>
 
@@ -85,6 +82,15 @@ export function ReviewPanel({
             <AiReviewCard review={creator.aiReview} />
           </div>
         )}
+
+        <div className="border-t border-gray-100 pt-5 pb-4">
+          <DecisionSection
+            currentStatus={creator.status}
+            onApprove={onApprove}
+            onReject={onReject}
+            onNeedsInfo={onNeedsInfo}
+          />
+        </div>
       </div>
     </div>
   )

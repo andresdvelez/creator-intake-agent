@@ -12,7 +12,7 @@ export function CreatorList({ creators, selectedId, onSelect }: CreatorListProps
   const reviewed = creators.length - pending
 
   return (
-    <aside className="w-72 shrink-0 border-r border-gray-200 bg-white flex flex-col h-full">
+    <aside className="w-72 shrink-0 border-r border-gray-200 bg-white flex flex-col h-full" data-tour="creator-list">
       <div className="px-4 py-4 border-b border-gray-100">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
           Applications

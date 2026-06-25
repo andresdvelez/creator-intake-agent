@@ -24,7 +24,7 @@ export function CreatorProfile({ creator }: CreatorProfileProps) {
     creator
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-tour="creator-profile">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold text-gray-900">{creatorName}</h2>

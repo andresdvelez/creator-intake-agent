@@ -1,29 +1,20 @@
-import type { CreatorStatus } from '@/types'
 import { Button } from '@/components/ui/Button'
 
-interface ActionBarProps {
-  currentStatus: CreatorStatus
+interface RunReviewSectionProps {
   isReviewing: boolean
   hasAiReview: boolean
   reviewError: string | null
   onRunReview: () => void
-  onApprove: () => void
-  onReject: () => void
-  onNeedsInfo: () => void
 }
 
-export function ActionBar({
-  currentStatus,
+export function RunReviewSection({
   isReviewing,
   hasAiReview,
   reviewError,
   onRunReview,
-  onApprove,
-  onReject,
-  onNeedsInfo,
-}: ActionBarProps) {
+}: RunReviewSectionProps) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" data-tour="run-review">
       {reviewError && (
         <div className="flex items-start gap-2.5 rounded-lg bg-red-50 border border-red-200 px-3.5 py-3">
           <svg
@@ -52,36 +43,6 @@ export function ActionBar({
       >
         {hasAiReview ? 'Re-run AI Review' : 'Run AI Review'}
       </Button>
-
-      <div className="grid grid-cols-3 gap-2">
-        <Button
-          variant="success"
-          size="sm"
-          onClick={onApprove}
-          disabled={currentStatus === 'approved'}
-          className="w-full"
-        >
-          Approve
-        </Button>
-        <Button
-          variant="warning"
-          size="sm"
-          onClick={onNeedsInfo}
-          disabled={currentStatus === 'needs_info'}
-          className="w-full"
-        >
-          Needs Info
-        </Button>
-        <Button
-          variant="danger"
-          size="sm"
-          onClick={onReject}
-          disabled={currentStatus === 'rejected'}
-          className="w-full"
-        >
-          Reject
-        </Button>
-      </div>
     </div>
   )
 }
