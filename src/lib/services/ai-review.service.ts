@@ -78,7 +78,6 @@ async function runGeminiReview(systemPrompt: string, userPrompt: string): Promis
     })
     const response = await model.generateContent(userPrompt)
     rawText = response.response.text()
-    console.error(`[Gemini] Raw response (${rawText.length} chars): ${rawText.slice(0, 400)}`)
   } catch (err) {
     // GoogleGenerativeAIFetchError carries a numeric .status from the HTTP response
     if (err instanceof GoogleGenerativeAIFetchError) {
@@ -98,6 +97,15 @@ async function runGeminiReview(systemPrompt: string, userPrompt: string): Promis
       return { success: false, error: `Gemini API error (${err.status ?? 'unknown'}): ${err.message}` }
     }
     if (err instanceof Error) {
+      const isNetworkFailure =
+        err.message.includes('fetch failed') ||
+        err.message.includes('ENOTFOUND') ||
+        err.message.includes('ECONNREFUSED') ||
+        err.message.includes('network')
+      if (isNetworkFailure) {
+        console.error(`[Gemini] Network error: ${err.message}`)
+        return { success: false, error: 'Could not reach Gemini — check your network connection or switch to AI_PROVIDER=anthropic in .env.local' }
+      }
       console.error(`[Gemini] Unexpected error: ${err.message}`)
       return { success: false, error: `Gemini error: ${err.message}` }
     }

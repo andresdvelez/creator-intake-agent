@@ -81,5 +81,5 @@ Models: `claude-haiku-4-5-20251001` (Anthropic, default) or `gemini-2.5-flash` (
 **Would improve with more time:**
 - Streaming AI responses with a typewriter reveal for reasoning text.
 - Keyboard navigation between creators (↑/↓ arrow keys).
-- "Copy suggested reply" button on the AI review card.
 - `localStorage` persistence so state survives page refresh.
+- Multi-campaign support — today the campaign is hardcoded; a real tool would let managers switch.

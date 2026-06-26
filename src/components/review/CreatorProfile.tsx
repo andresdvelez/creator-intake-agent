@@ -1,75 +1,92 @@
 import type { Creator } from '@/types'
+import { formatFollowers } from '@/utils/format-followers'
 
 interface CreatorProfileProps {
   creator: Creator
 }
 
-function StatPill({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col items-center bg-gray-50 rounded-lg px-4 py-2.5 min-w-[80px]">
-      <span className="text-base font-bold text-gray-900">{value}</span>
-      <span className="text-xs text-gray-500 mt-0.5">{label}</span>
-    </div>
-  )
+type Platform = 'TikTok' | 'Instagram' | 'YouTube'
+
+const ENGAGEMENT_BENCHMARKS: Record<Platform, { high: number; medium: number }> = {
+  TikTok:    { high: 5, medium: 2 },
+  Instagram: { high: 3, medium: 1 },
+  YouTube:   { high: 5, medium: 2 },
 }
 
-function formatFollowers(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
+function engagementColor(rate: number, platform: string): string {
+  const b = ENGAGEMENT_BENCHMARKS[platform as Platform] ?? { high: 4, medium: 2 }
+  if (rate >= b.high) return 'text-emerald-600'
+  if (rate >= b.medium) return 'text-amber-500'
+  return 'text-red-500'
+}
+
+function engagementLabel(rate: number, platform: string): string {
+  const b = ENGAGEMENT_BENCHMARKS[platform as Platform] ?? { high: 4, medium: 2 }
+  if (rate >= b.high) return 'High'
+  if (rate >= b.medium) return 'Avg'
+  return 'Low'
+}
+
+function creatorTier(followers: number): { label: string; color: string } {
+  if (followers >= 1_000_000) return { label: 'Macro', color: 'bg-purple-100 text-purple-600' }
+  if (followers >= 100_000)   return { label: 'Mid-tier', color: 'bg-blue-100 text-blue-600' }
+  if (followers >= 10_000)    return { label: 'Micro', color: 'bg-teal-100 text-teal-600' }
+  return { label: 'Nano', color: 'bg-gray-100 text-gray-500' }
 }
 
 export function CreatorProfile({ creator }: CreatorProfileProps) {
-  const { creatorName, handle, platform, followers, engagementRate, audienceSummary, contentStyle, pastBrandDeals } =
-    creator
+  const { platform, followers, engagementRate, audienceSummary, contentStyle, pastBrandDeals } = creator
+  const engColor = engagementColor(engagementRate, platform)
+  const engTag = engagementLabel(engagementRate, platform)
+  const tier = creatorTier(followers)
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900">{creatorName}</h2>
-          <div className="flex items-center gap-2 mt-0.5">
-            <span className="text-sm text-gray-500">{handle}</span>
-            <span className="text-gray-300">·</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
-              {platform}
+    <div className="space-y-4 sm:space-y-5" data-tour="creator-profile">
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <div className="bg-gray-50 rounded-2xl px-3.5 py-3 sm:px-4 sm:py-3.5 ring-1 ring-black/[0.03]">
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Followers</p>
+            <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${tier.color}`}>
+              {tier.label}
             </span>
           </div>
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">{formatFollowers(followers)}</p>
+        </div>
+        <div className="bg-gray-50 rounded-2xl px-3.5 py-3 sm:px-4 sm:py-3.5 ring-1 ring-black/[0.03]">
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Engagement</p>
+            <span className={`text-[10px] font-semibold ${engColor}`}>{engTag}</span>
+          </div>
+          <p className={`text-xl sm:text-2xl font-bold ${engColor}`}>{engagementRate}%</p>
         </div>
       </div>
 
-      <div className="flex gap-2.5">
-        <StatPill label="Followers" value={formatFollowers(followers)} />
-        <StatPill label="Engagement" value={`${engagementRate}%`} />
-      </div>
+      {/* Details */}
+      <div className="space-y-3 sm:space-y-4">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Audience</p>
+          <p className="text-sm text-gray-600 leading-relaxed">{audienceSummary}</p>
+        </div>
 
-      <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
-          Audience
-        </h3>
-        <p className="text-sm text-gray-700 leading-relaxed">{audienceSummary}</p>
-      </div>
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Content Style</p>
+          <p className="text-sm text-gray-600 leading-relaxed">{contentStyle}</p>
+        </div>
 
-      <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
-          Content Style
-        </h3>
-        <p className="text-sm text-gray-700 leading-relaxed">{contentStyle}</p>
-      </div>
-
-      <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
-          Past Brand Deals
-        </h3>
-        <div className="flex flex-wrap gap-1.5">
-          {pastBrandDeals.map((brand) => (
-            <span
-              key={brand}
-              className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700"
-            >
-              {brand}
-            </span>
-          ))}
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Past Brand Deals</p>
+          <div className="flex flex-wrap gap-1.5">
+            {pastBrandDeals.map((brand) => (
+              <span
+                key={brand}
+                className="inline-flex items-center px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600"
+              >
+                {brand}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
