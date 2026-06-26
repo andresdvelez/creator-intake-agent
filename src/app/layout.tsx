@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
-import { Toaster } from 'sileo'
+import { ResponsiveToaster } from '@/components/ui/ResponsiveToaster'
 import './globals.css'
 import 'sileo/styles.css'
 
@@ -22,9 +22,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full`}>
       <body className="h-full antialiased">
-          {children}
-          <Toaster position="bottom-left" theme="light" options={{ fill: '#18181b' }} />
-        </body>
+        {children}
+        <ResponsiveToaster />
+      </body>
     </html>
   )
 }

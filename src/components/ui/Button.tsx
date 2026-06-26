@@ -1,5 +1,5 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'warning'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'warning' | 'successFilled' | 'warningFilled' | 'dangerFilled'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
   children: React.ReactNode
@@ -11,11 +11,15 @@ const VARIANT_CLASSES: Record<NonNullable<ButtonProps['variant']>, string> = {
   secondary:
     'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm',
   ghost: 'text-gray-600 hover:bg-gray-100 active:bg-gray-200',
-  danger: 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 active:bg-red-200',
+  danger:
+    'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 active:bg-red-200',
   success:
     'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 active:bg-green-200',
   warning:
     'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 active:bg-amber-200',
+  successFilled: 'bg-green-500 text-white shadow-sm',
+  warningFilled: 'bg-amber-400 text-white shadow-sm',
+  dangerFilled:  'bg-red-500  text-white shadow-sm',
 }
 
 const SIZE_CLASSES: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -36,7 +40,7 @@ export function Button({
   return (
     <button
       disabled={disabled ?? isLoading}
-      className={`inline-flex items-center justify-center rounded-lg font-medium transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#ff5a00]/30 disabled:opacity-50 disabled:cursor-not-allowed ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-xl font-medium transition-colors duration-150 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#ff5a00]/30 disabled:opacity-40 disabled:cursor-not-allowed ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${className}`}
       {...props}
     >
       {isLoading ? (
