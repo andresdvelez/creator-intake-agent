@@ -35,7 +35,7 @@ export function FitScoreBar({ score }: FitScoreBarProps) {
         </span>
       </div>
 
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-500"
           style={{ width: `${percentage}%`, backgroundColor: color }}

@@ -5,22 +5,22 @@ interface BadgeProps {
 }
 
 const VARIANT_CLASSES: Record<BadgeProps['variant'], string> = {
-  pending: 'bg-gray-100 text-gray-600 border border-gray-200',
-  approved: 'bg-green-50 text-green-700 border border-green-200',
-  rejected: 'bg-red-50 text-red-700 border border-red-200',
-  needs_info: 'bg-amber-50 text-amber-700 border border-amber-200',
-  manual_review: 'bg-blue-50 text-blue-700 border border-blue-200',
+  pending: 'bg-gray-100 text-gray-500',
+  approved: 'bg-green-100 text-green-700',
+  rejected: 'bg-red-100 text-red-600',
+  needs_info: 'bg-amber-100 text-amber-700',
+  manual_review: 'bg-blue-100 text-blue-700',
 }
 
 const SIZE_CLASSES: Record<NonNullable<BadgeProps['size']>, string> = {
-  sm: 'px-2 py-0.5 text-xs',
+  sm: 'px-2 py-0.5 text-[10px]',
   md: 'px-2.5 py-1 text-xs',
 }
 
 export function Badge({ variant, children, size = 'sm' }: BadgeProps) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full font-medium ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]}`}
+      className={`inline-flex items-center gap-1 rounded-full font-semibold ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]}`}
     >
       {children}
     </span>

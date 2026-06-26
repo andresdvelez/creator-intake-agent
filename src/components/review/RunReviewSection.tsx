@@ -16,9 +16,9 @@ export function RunReviewSection({
   return (
     <div className="space-y-3" data-tour="run-review">
       {reviewError && (
-        <div className="flex items-start gap-2.5 rounded-lg bg-red-50 border border-red-200 px-3.5 py-3">
+        <div className="flex items-start gap-3 rounded-2xl bg-red-50 ring-1 ring-red-100 px-4 py-3.5">
           <svg
-            className="h-4 w-4 text-red-500 mt-0.5 shrink-0"
+            className="h-4 w-4 text-red-400 mt-0.5 shrink-0"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -30,7 +30,7 @@ export function RunReviewSection({
               d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <p className="text-sm text-red-700">{reviewError}</p>
+          <p className="text-sm text-red-600">{reviewError}</p>
         </div>
       )}
 

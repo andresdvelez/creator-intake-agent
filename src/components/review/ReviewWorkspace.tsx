@@ -62,10 +62,10 @@ export function ReviewWorkspace() {
         options={JOYRIDE_OPTIONS}
       />
 
-      <div className="flex h-full overflow-hidden">
+      <div className="flex flex-col md:flex-row h-full gap-2 sm:gap-3">
         <CreatorList creators={creators} selectedId={selectedId} onSelect={setSelectedId} />
 
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-hidden min-h-0">
           {selectedCreator !== null ? (
             <ReviewPanel
               creator={selectedCreator}
@@ -78,7 +78,7 @@ export function ReviewWorkspace() {
               onNeedsInfo={handleNeedsInfo}
             />
           ) : (
-            <div className="flex h-full items-center justify-center">
+            <div className="h-full bg-white rounded-2xl shadow-sm ring-1 ring-black/[0.04] flex items-center justify-center">
               <p className="text-sm text-gray-400">Select a creator to begin review</p>
             </div>
           )}
@@ -87,7 +87,7 @@ export function ReviewWorkspace() {
 
       <button
         onClick={startTour}
-        className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-[#ff5a00] text-white shadow-lg hover:bg-[#e54f00] transition-all hover:scale-110 flex items-center justify-center font-bold text-lg"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#ff5a00] text-white shadow-lg hover:bg-[#e54f00] transition-all hover:scale-110 flex items-center justify-center font-bold text-base sm:text-lg"
         aria-label="Start product tour"
         title="Help"
       >
