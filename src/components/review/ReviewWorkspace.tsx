@@ -66,7 +66,7 @@ export function ReviewWorkspace() {
         <CreatorList creators={creators} selectedId={selectedId} onSelect={setSelectedId} />
 
         <main className="flex-1 overflow-hidden min-h-0">
-          {selectedCreator !== null ? (
+          {selectedCreator !== null && (
             <ReviewPanel
               creator={selectedCreator}
               campaign={CAMPAIGN}
@@ -77,17 +77,13 @@ export function ReviewWorkspace() {
               onReject={handleReject}
               onNeedsInfo={handleNeedsInfo}
             />
-          ) : (
-            <div className="h-full bg-white rounded-2xl shadow-sm ring-1 ring-black/[0.04] flex items-center justify-center">
-              <p className="text-sm text-gray-400">Select a creator to begin review</p>
-            </div>
           )}
         </main>
       </div>
 
       <button
         onClick={startTour}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#ff5a00] text-white shadow-lg hover:bg-[#e54f00] transition-all hover:scale-110 flex items-center justify-center font-bold text-base sm:text-lg"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#ff5a00] text-white shadow-lg hover:bg-[#e54f00] transition-all hover:scale-110 flex items-center justify-center font-bold text-base sm:text-lg cursor-pointer"
         aria-label="Start product tour"
         title="Help"
       >

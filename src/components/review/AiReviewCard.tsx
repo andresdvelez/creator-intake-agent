@@ -1,5 +1,6 @@
 import type { AiRecommendation, AiReviewResult } from '@/types'
 import { Badge } from '@/components/ui/Badge'
+import { CopyButton } from '@/components/ui/CopyButton'
 import { FitScoreBar } from './FitScoreBar'
 
 interface AiReviewCardProps {
@@ -45,6 +46,8 @@ export function AiReviewCard({ review }: AiReviewCardProps) {
 
   return (
     <div className="bg-gray-50 rounded-2xl ring-1 ring-black/[0.04] overflow-hidden">
+
+      {/* Card header */}
       <div className="px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-2">
           <div className="h-5 w-5 rounded-full bg-[#ff5a00]/10 flex items-center justify-center shrink-0">
@@ -57,9 +60,16 @@ export function AiReviewCard({ review }: AiReviewCardProps) {
         </Badge>
       </div>
 
-      <div className="p-4 sm:p-5 space-y-4 sm:space-y-5">
+      {/* Hero fit score */}
+      <div className="px-4 sm:px-5 pt-4 sm:pt-5 pb-4 border-b border-gray-100">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-3">
+          Campaign Fit Score
+        </p>
         <FitScoreBar score={fitScore} />
+      </div>
 
+      {/* Details */}
+      <div className="p-4 sm:p-5 space-y-4 sm:space-y-5">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Reasoning</p>
           <p className="text-sm text-gray-600 leading-relaxed">{reasoning}</p>
@@ -69,7 +79,12 @@ export function AiReviewCard({ review }: AiReviewCardProps) {
         <ListSection title="Missing Info" items={missingInfo} />
 
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Suggested Reply</p>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">
+              Suggested Reply
+            </p>
+            <CopyButton text={suggestedReply} />
+          </div>
           <div className="bg-[#fff3ee] rounded-xl px-3.5 sm:px-4 py-3 sm:py-3.5 ring-1 ring-[#ff5a00]/10">
             <p className="text-sm text-gray-700 leading-relaxed">{suggestedReply}</p>
           </div>

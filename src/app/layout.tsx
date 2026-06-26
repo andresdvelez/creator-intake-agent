@@ -22,9 +22,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full`}>
       <body className="h-full antialiased">
-          {children}
-          <ResponsiveToaster />
-        </body>
+        {children}
+        <ResponsiveToaster />
+      </body>
     </html>
   )
 }

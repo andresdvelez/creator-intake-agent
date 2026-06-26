@@ -22,7 +22,7 @@ export function CreatorListItem({ creator, isSelected, onSelect }: CreatorListIt
   return (
     <button
       onClick={() => onSelect(id)}
-      className={`text-left rounded-xl px-3 py-2.5 md:py-3 transition-all duration-150
+      className={`text-left rounded-xl px-3 py-2.5 md:py-3 transition-all duration-150 cursor-pointer
         w-44 sm:w-52 md:w-full shrink-0 md:shrink
         ${isSelected
           ? 'bg-[#fff3ee] ring-1 ring-[#ff5a00]/20'
