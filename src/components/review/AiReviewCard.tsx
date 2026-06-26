@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/Badge";
 import type { BadgeVariant } from "@/components/ui/Badge";
 import { CopyButton } from "@/components/ui/CopyButton";
 import { FitScoreBar } from "./FitScoreBar";
+import { ListSection } from "./ListSection";
 
 interface AiReviewCardProps {
   review: AiReviewResult;
@@ -21,28 +22,6 @@ const RECOMMENDATION_BADGE: Record<AiRecommendation, BadgeVariant> = {
   needs_info: "needs_info",
   manual_review: "manual_review",
 };
-
-function ListSection({ title, items }: { title: string; items: string[] }) {
-  if (items.length === 0) return null;
-  return (
-    <div>
-      <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
-        {title}
-      </p>
-      <ul className="space-y-1.5">
-        {items.map((item) => (
-          <li
-            key={item}
-            className="flex items-start gap-2.5 text-sm text-gray-600"
-          >
-            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0" />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 export function AiReviewCard({ review }: AiReviewCardProps) {
   const {

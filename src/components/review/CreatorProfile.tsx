@@ -24,14 +24,15 @@ function engagementInfo(
   return { color: "text-red-500", label: "Low" };
 }
 
-function creatorTier(followers: number): { label: string; color: string } {
-  if (followers >= 1_000_000)
-    return { label: "Macro", color: "bg-purple-100 text-purple-600" };
-  if (followers >= 100_000)
-    return { label: "Mid-tier", color: "bg-blue-100 text-blue-600" };
-  if (followers >= 10_000)
-    return { label: "Micro", color: "bg-teal-100 text-teal-600" };
-  return { label: "Nano", color: "bg-gray-100 text-gray-500" };
+const CREATOR_TIERS = [
+  { min: 1_000_000, label: "Macro", color: "bg-purple-100 text-purple-600" },
+  { min: 100_000, label: "Mid-tier", color: "bg-blue-100 text-blue-600" },
+  { min: 10_000, label: "Micro", color: "bg-teal-100 text-teal-600" },
+  { min: 0, label: "Nano", color: "bg-gray-100 text-gray-500" },
+] as const;
+
+function creatorTier(followers: number) {
+  return CREATOR_TIERS.find((t) => followers >= t.min) ?? CREATOR_TIERS[3];
 }
 
 export function CreatorProfile({ creator }: CreatorProfileProps) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { sileo } from "sileo";
 
 import type { AiReviewResult, Creator, CreatorStatus } from "@/types";
@@ -26,7 +26,10 @@ export function useReviewWorkspace(): UseReviewWorkspaceReturn {
   const [isReviewing, setIsReviewing] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
 
-  const selectedCreator = creators.find((c) => c.id === selectedId) ?? null;
+  const selectedCreator = useMemo(
+    () => creators.find((c) => c.id === selectedId) ?? null,
+    [creators, selectedId],
+  );
 
   function updateStatus(id: string, status: CreatorStatus) {
     setCreators((prev) =>
@@ -42,31 +45,30 @@ export function useReviewWorkspace(): UseReviewWorkspaceReturn {
 
   async function handleRunReview() {
     if (!selectedId) return;
+    const capturedId = selectedId;
     setIsReviewing(true);
     setReviewError(null);
 
-    const promise: Promise<AiReviewResult> = runCreatorReview(selectedId).then(
-      (result) => {
-        if (!result.success) throw new Error(result.error);
-        return result.data;
-      },
-    );
-
-    sileo.promise(promise, {
-      loading: { title: "Running AI review…" },
-      success: (data) => ({
-        title: "Review complete",
-        description: `Fit score: ${data.fitScore}/10`,
-      }),
-      error: (err) => ({
-        title: "Review failed",
-        description: err instanceof Error ? err.message : "Please try again",
-      }),
-    });
-
     try {
-      const data = await promise;
-      applyAiReview(selectedId, data);
+      const data = await sileo.promise(
+        runCreatorReview(capturedId).then((result) => {
+          if (!result.success) throw new Error(result.error);
+          return result.data;
+        }),
+        {
+          loading: { title: "Running AI review…" },
+          success: (d) => ({
+            title: "Review complete",
+            description: `Fit score: ${d.fitScore}/10`,
+          }),
+          error: (err) => ({
+            title: "Review failed",
+            description:
+              err instanceof Error ? err.message : "Please try again",
+          }),
+        },
+      );
+      applyAiReview(capturedId, data);
     } catch (err) {
       setReviewError(
         err instanceof Error

@@ -1,5 +1,9 @@
 export type CreatorStatus = "pending" | "approved" | "rejected" | "needs_info";
 
+export type ServiceResult<T = AiReviewResult> =
+  | { success: true; data: T }
+  | { success: false; error: string };
+
 export type CreatorPlatform = "TikTok" | "Instagram" | "YouTube";
 
 export type AiRecommendation =
