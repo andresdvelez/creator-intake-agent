@@ -33,7 +33,7 @@ export async function runAnthropicReview(
     const client = new Anthropic({ apiKey });
     const message = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 1024,
+      max_tokens: 2048,
       system: systemPrompt,
       messages: [{ role: "user", content: userPrompt }],
     });
@@ -42,6 +42,12 @@ export async function runAnthropicReview(
       return {
         success: false,
         error: "Unexpected response format from Anthropic",
+      };
+    }
+    if (message.stop_reason === "max_tokens") {
+      return {
+        success: false,
+        error: "AI response was too long and got cut off — please try again",
       };
     }
     rawText = block.text;

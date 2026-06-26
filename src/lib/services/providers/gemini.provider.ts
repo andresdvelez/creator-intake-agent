@@ -62,6 +62,13 @@ export async function runGeminiReview(
       },
     });
     const response = await model.generateContent(userPrompt);
+    const candidate = response.response.candidates?.[0];
+    if (candidate?.finishReason === "MAX_TOKENS") {
+      return {
+        success: false,
+        error: "AI response was too long and got cut off — please try again",
+      };
+    }
     rawText = response.response.text();
   } catch (err) {
     if (err instanceof GoogleGenerativeAIFetchError) {
