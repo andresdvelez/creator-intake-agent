@@ -1,4 +1,4 @@
-import { Campaign, Creator } from "@/types";
+import type { Campaign, Creator } from "@/types";
 
 export function buildUserPrompt(campaign: Campaign, creator: Creator): string {
   return `Evaluate this creator application for the campaign below.

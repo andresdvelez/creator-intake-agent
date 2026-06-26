@@ -19,8 +19,9 @@ export function AiReviewPlaceholder() {
       </div>
       <p className="text-sm font-medium text-gray-400">No AI analysis yet</p>
       <p className="text-xs text-gray-300 max-w-[220px] leading-relaxed">
-        Run AI Review above to get a fit score, recommendation, risks, and suggested reply.
+        Run AI Review above to get a fit score, recommendation, risks, and
+        suggested reply.
       </p>
     </div>
-  )
+  );
 }

@@ -1,15 +1,18 @@
-import type { Creator } from '@/types'
-import { CreatorListItem } from './CreatorListItem'
+import type { Creator } from "@/types";
+import { CreatorListItem } from "./CreatorListItem";
 
 interface CreatorListProps {
-  creators: Creator[]
-  selectedId: string
-  onSelect: (id: string) => void
+  creators: Creator[];
+  selectedId: string;
+  onSelect: (id: string) => void;
 }
 
-export function CreatorList({ creators, selectedId, onSelect }: CreatorListProps) {
-  const pending = creators.filter((c) => c.status === 'pending').length
-  const reviewed = creators.length - pending
+export function CreatorList({
+  creators,
+  selectedId,
+  onSelect,
+}: CreatorListProps) {
+  const reviewed = creators.filter((c) => c.status !== "pending").length;
 
   return (
     <aside
@@ -22,12 +25,16 @@ export function CreatorList({ creators, selectedId, onSelect }: CreatorListProps
         </p>
         <div className="flex items-center gap-3 md:gap-4">
           <div>
-            <span className="text-lg md:text-2xl font-bold text-gray-900">{creators.length}</span>
+            <span className="text-lg md:text-2xl font-bold text-gray-900">
+              {creators.length}
+            </span>
             <span className="ml-1 text-xs text-gray-400">total</span>
           </div>
           <div className="h-5 md:h-6 w-px bg-gray-100" />
           <div>
-            <span className="text-lg md:text-2xl font-bold text-gray-900">{reviewed}</span>
+            <span className="text-lg md:text-2xl font-bold text-gray-900">
+              {reviewed}
+            </span>
             <span className="ml-1 text-xs text-gray-400">reviewed</span>
           </div>
         </div>
@@ -47,5 +54,5 @@ export function CreatorList({ creators, selectedId, onSelect }: CreatorListProps
         </div>
       </div>
     </aside>
-  )
+  );
 }

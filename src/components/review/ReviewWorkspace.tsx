@@ -1,13 +1,17 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { Joyride, STATUS } from 'react-joyride'
-import type { EventData, Options, Step } from 'react-joyride'
-import { CAMPAIGN } from '@/lib/data/campaign'
-import { useReviewWorkspace } from '@/hooks/useReviewWorkspace'
-import { TOUR_STEPS, shouldShowTourOnMount, useUIStore } from '@/lib/store/ui.store'
-import { CreatorList } from './CreatorList'
-import { ReviewPanel } from './ReviewPanel'
+import { useCallback, useEffect } from "react";
+import { Joyride, STATUS } from "react-joyride";
+import type { EventData, Options, Step } from "react-joyride";
+import { CAMPAIGN } from "@/lib/data/campaign";
+import { useReviewWorkspace } from "@/hooks/useReviewWorkspace";
+import {
+  TOUR_STEPS,
+  shouldShowTourOnMount,
+  useUIStore,
+} from "@/lib/store/ui.store";
+import { CreatorList } from "./CreatorList";
+import { ReviewPanel } from "./ReviewPanel";
 
 const JOYRIDE_STEPS: Step[] = TOUR_STEPS.map((s) => ({
   target: s.target,
@@ -15,14 +19,14 @@ const JOYRIDE_STEPS: Step[] = TOUR_STEPS.map((s) => ({
   content: s.body,
   placement: s.placement,
   skipBeacon: true,
-}))
+}));
 
 const JOYRIDE_OPTIONS: Partial<Options> = {
-  primaryColor: '#ff5a00',
+  primaryColor: "#ff5a00",
   showProgress: true,
-  buttons: ['back', 'close', 'primary', 'skip'],
-  closeButtonAction: 'skip',
-}
+  buttons: ["back", "close", "primary", "skip"],
+  closeButtonAction: "skip",
+};
 
 export function ReviewWorkspace() {
   const {
@@ -36,21 +40,24 @@ export function ReviewWorkspace() {
     handleApprove,
     handleReject,
     handleNeedsInfo,
-  } = useReviewWorkspace()
+  } = useReviewWorkspace();
 
-  const { tourActive, startTour, endTour } = useUIStore()
+  const tourActive = useUIStore((s) => s.tourActive);
+  const startTour = useUIStore((s) => s.startTour);
+  const endTour = useUIStore((s) => s.endTour);
 
   useEffect(() => {
-    if (!shouldShowTourOnMount()) return
-    const t = setTimeout(startTour, 500)
-    return () => clearTimeout(t)
-  }, [startTour])
+    if (!shouldShowTourOnMount()) return;
+    const t = setTimeout(startTour, 500);
+    return () => clearTimeout(t);
+  }, [startTour]);
 
-  function handleTourEvent({ status }: EventData) {
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
-      endTour()
-    }
-  }
+  const handleTourEvent = useCallback(
+    ({ status }: EventData) => {
+      if (status === STATUS.FINISHED || status === STATUS.SKIPPED) endTour();
+    },
+    [endTour],
+  );
 
   return (
     <>
@@ -63,7 +70,11 @@ export function ReviewWorkspace() {
       />
 
       <div className="flex flex-col md:flex-row h-full gap-2 sm:gap-3">
-        <CreatorList creators={creators} selectedId={selectedId} onSelect={setSelectedId} />
+        <CreatorList
+          creators={creators}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+        />
 
         <main className="flex-1 overflow-hidden min-h-0">
           {selectedCreator !== null && (
@@ -90,5 +101,5 @@ export function ReviewWorkspace() {
         ?
       </button>
     </>
-  )
+  );
 }

@@ -1,31 +1,26 @@
 interface FitScoreBarProps {
-  score: number
+  score: number;
 }
 
-function getScoreColor(score: number): string {
-  if (score >= 8) return '#22c55e'
-  if (score >= 6) return '#ff5a00'
-  if (score >= 4) return '#f59e0b'
-  return '#ef4444'
-}
-
-function getScoreLabel(score: number): string {
-  if (score >= 8) return 'Strong fit'
-  if (score >= 6) return 'Good fit'
-  if (score >= 4) return 'Partial fit'
-  return 'Poor fit'
+function getScoreInfo(score: number): { color: string; label: string } {
+  if (score >= 8) return { color: "#22c55e", label: "Strong fit" };
+  if (score >= 6) return { color: "#ff5a00", label: "Good fit" };
+  if (score >= 4) return { color: "#f59e0b", label: "Partial fit" };
+  return { color: "#ef4444", label: "Poor fit" };
 }
 
 export function FitScoreBar({ score }: FitScoreBarProps) {
-  const color = getScoreColor(score)
-  const label = getScoreLabel(score)
-  const percentage = score * 10
+  const { color, label } = getScoreInfo(score);
+  const percentage = score * 10;
 
   return (
     <div className="space-y-2.5">
       <div className="flex items-end justify-between">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-4xl sm:text-5xl font-black leading-none" style={{ color }}>
+          <span
+            className="text-4xl sm:text-5xl font-black leading-none"
+            style={{ color }}
+          >
             {score}
           </span>
           <span className="text-base text-gray-300 font-normal">/10</span>
@@ -42,5 +37,5 @@ export function FitScoreBar({ score }: FitScoreBarProps) {
         />
       </div>
     </div>
-  )
+  );
 }

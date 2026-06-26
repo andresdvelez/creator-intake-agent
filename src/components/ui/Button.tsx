@@ -1,40 +1,49 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'warning' | 'successFilled' | 'warningFilled' | 'dangerFilled'
-  size?: 'sm' | 'md' | 'lg'
-  isLoading?: boolean
-  children: React.ReactNode
+  variant?:
+    | "primary"
+    | "secondary"
+    | "ghost"
+    | "danger"
+    | "success"
+    | "warning"
+    | "successFilled"
+    | "warningFilled"
+    | "dangerFilled";
+  size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
+  children: React.ReactNode;
 }
 
-const VARIANT_CLASSES: Record<NonNullable<ButtonProps['variant']>, string> = {
+const VARIANT_CLASSES: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
-    'bg-[#ff5a00] text-white hover:bg-[#e64f00] active:bg-[#cc4600] shadow-sm',
+    "bg-[#ff5a00] text-white hover:bg-[#e64f00] active:bg-[#cc4600] shadow-sm",
   secondary:
-    'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm',
-  ghost: 'text-gray-600 hover:bg-gray-100 active:bg-gray-200',
+    "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:bg-gray-100 shadow-sm",
+  ghost: "text-gray-600 hover:bg-gray-100 active:bg-gray-200",
   danger:
-    'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 active:bg-red-200',
+    "bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 active:bg-red-200",
   success:
-    'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 active:bg-green-200',
+    "bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 active:bg-green-200",
   warning:
-    'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 active:bg-amber-200',
-  successFilled: 'bg-green-500 text-white shadow-sm',
-  warningFilled: 'bg-amber-400 text-white shadow-sm',
-  dangerFilled:  'bg-red-500  text-white shadow-sm',
-}
+    "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 active:bg-amber-200",
+  successFilled: "bg-green-500 text-white shadow-sm",
+  warningFilled: "bg-amber-400 text-white shadow-sm",
+  dangerFilled: "bg-red-500  text-white shadow-sm",
+};
 
-const SIZE_CLASSES: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'px-3 py-1.5 text-xs gap-1.5',
-  md: 'px-4 py-2 text-sm gap-2',
-  lg: 'px-5 py-2.5 text-sm gap-2',
-}
+const SIZE_CLASSES: Record<NonNullable<ButtonProps["size"]>, string> = {
+  sm: "px-3 py-1.5 text-xs gap-1.5",
+  md: "px-4 py-2 text-sm gap-2",
+  lg: "px-5 py-2.5 text-sm gap-2",
+};
 
 export function Button({
-  variant = 'secondary',
-  size = 'md',
+  variant = "secondary",
+  size = "md",
   isLoading = false,
   disabled,
   children,
-  className = '',
+  className = "",
   ...props
 }: ButtonProps) {
   return (
@@ -71,5 +80,5 @@ export function Button({
         children
       )}
     </button>
-  )
+  );
 }
