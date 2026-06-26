@@ -13,14 +13,15 @@ export function AiReviewPlaceholder() {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
+            d="M12.813 15.904L12 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L5.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L12 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L18.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
           />
         </svg>
       </div>
       <p className="text-sm font-medium text-gray-400">No AI analysis yet</p>
       <p className="text-xs text-gray-300 max-w-[220px] leading-relaxed">
-        Run AI Review above to get a fit score, recommendation, risks, and suggested reply.
+        Run AI Review above to get a fit score, recommendation, risks, and
+        suggested reply.
       </p>
     </div>
-  )
+  );
 }

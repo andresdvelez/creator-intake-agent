@@ -1,14 +1,16 @@
-import type { Campaign, Creator } from '@/types'
+import type { Campaign, Creator } from "@/types";
 
 interface ApplicationSectionProps {
-  creator: Creator
-  campaign: Campaign
+  creator: Creator;
+  campaign: Campaign;
 }
 
-export function ApplicationSection({ creator, campaign }: ApplicationSectionProps) {
+export function ApplicationSection({
+  creator,
+  campaign,
+}: ApplicationSectionProps) {
   return (
     <div className="space-y-4" data-tour="application-section">
-
       {/* Creator application message */}
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2.5">
@@ -24,19 +26,25 @@ export function ApplicationSection({ creator, campaign }: ApplicationSectionProp
       {/* Campaign context */}
       <div className="bg-gray-50 rounded-2xl p-4 ring-1 ring-black/[0.03] space-y-3.5">
         <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Campaign</p>
-          <span className="text-xs font-semibold text-[#ff5a00]">{campaign.brandName}</span>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">
+            Campaign
+          </p>
+          <span className="text-xs font-semibold text-[#ff5a00]">
+            {campaign.brandName}
+          </span>
         </div>
 
-        <p className="text-xs text-gray-500 leading-relaxed">{campaign.campaignGoal}</p>
+        <p className="text-xs text-gray-500 leading-relaxed">
+          {campaign.campaignGoal}
+        </p>
 
         <div className="flex flex-wrap gap-1.5">
-          {campaign.platforms.map((p) => (
+          {campaign.platforms.map((platform) => (
             <span
-              key={p}
+              key={platform}
               className="px-2.5 py-1 rounded-full text-xs font-medium bg-white ring-1 ring-black/[0.06] text-gray-500"
             >
-              {p}
+              {platform}
             </span>
           ))}
           <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-white ring-1 ring-black/[0.06] text-gray-500">
@@ -55,12 +63,14 @@ export function ApplicationSection({ creator, campaign }: ApplicationSectionProp
                 <div className="mt-[3px] h-3.5 w-3.5 rounded-full ring-1 ring-gray-200 bg-white shrink-0 flex items-center justify-center">
                   <div className="h-1 w-1 rounded-full bg-gray-300" />
                 </div>
-                <span className="text-xs text-gray-500 leading-snug">{req}</span>
+                <span className="text-xs text-gray-500 leading-snug">
+                  {req}
+                </span>
               </li>
             ))}
           </ul>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,52 +1,41 @@
-import type { AiRecommendation, AiReviewResult } from '@/types'
-import { Badge } from '@/components/ui/Badge'
-import { CopyButton } from '@/components/ui/CopyButton'
-import { FitScoreBar } from './FitScoreBar'
+import type { AiRecommendation, AiReviewResult } from "@/types";
+import { Badge } from "@/components/ui/Badge";
+import type { BadgeVariant } from "@/components/ui/Badge";
+import { CopyButton } from "@/components/ui/CopyButton";
+import { FitScoreBar } from "./FitScoreBar";
+import { ListSection } from "./ListSection";
 
 interface AiReviewCardProps {
-  review: AiReviewResult
+  review: AiReviewResult;
 }
-
-type BadgeVariant = 'approved' | 'rejected' | 'needs_info' | 'manual_review' | 'pending'
 
 const RECOMMENDATION_LABEL: Record<AiRecommendation, string> = {
-  approve: 'Approve',
-  reject: 'Reject',
-  needs_info: 'Needs Info',
-  manual_review: 'Manual Review',
-}
+  approve: "Approve",
+  reject: "Reject",
+  needs_info: "Needs Info",
+  manual_review: "Manual Review",
+};
 
 const RECOMMENDATION_BADGE: Record<AiRecommendation, BadgeVariant> = {
-  approve: 'approved',
-  reject: 'rejected',
-  needs_info: 'needs_info',
-  manual_review: 'manual_review',
-}
-
-function ListSection({ title, items }: { title: string; items: string[] }) {
-  if (items.length === 0) return null
-  return (
-    <div>
-      <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">{title}</p>
-      <ul className="space-y-1.5">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600">
-            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-300 shrink-0" />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+  approve: "approved",
+  reject: "rejected",
+  needs_info: "needs_info",
+  manual_review: "manual_review",
+};
 
 export function AiReviewCard({ review }: AiReviewCardProps) {
-  const { fitScore, recommendation, reasoning, risks, missingInfo, suggestedReply } = review
-  const badgeVariant = RECOMMENDATION_BADGE[recommendation]
+  const {
+    fitScore,
+    recommendation,
+    reasoning,
+    risks,
+    missingInfo,
+    suggestedReply,
+  } = review;
+  const badgeVariant = RECOMMENDATION_BADGE[recommendation];
 
   return (
     <div className="bg-gray-50 rounded-2xl ring-1 ring-black/[0.04] overflow-hidden">
-
       {/* Card header */}
       <div className="px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-2">
@@ -71,7 +60,9 @@ export function AiReviewCard({ review }: AiReviewCardProps) {
       {/* Details */}
       <div className="p-4 sm:p-5 space-y-4 sm:space-y-5">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Reasoning</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
+            Reasoning
+          </p>
           <p className="text-sm text-gray-600 leading-relaxed">{reasoning}</p>
         </div>
 
@@ -86,10 +77,12 @@ export function AiReviewCard({ review }: AiReviewCardProps) {
             <CopyButton text={suggestedReply} />
           </div>
           <div className="bg-[#fff3ee] rounded-xl px-3.5 sm:px-4 py-3 sm:py-3.5 ring-1 ring-[#ff5a00]/10">
-            <p className="text-sm text-gray-700 leading-relaxed">{suggestedReply}</p>
+            <p className="text-sm text-gray-700 leading-relaxed">
+              {suggestedReply}
+            </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

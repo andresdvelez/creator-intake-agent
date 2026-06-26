@@ -1,5 +1,5 @@
-import { Header } from '@/components/layout/Header'
-import { ReviewWorkspace } from '@/components/review/ReviewWorkspace'
+import { Header } from "@/components/layout/Header";
+import { ReviewWorkspace } from "@/components/review/ReviewWorkspace";
 
 export default function Page() {
   return (
@@ -9,5 +9,5 @@ export default function Page() {
         <ReviewWorkspace />
       </div>
     </div>
-  )
+  );
 }
